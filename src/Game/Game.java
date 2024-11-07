@@ -20,15 +20,15 @@ public class Game extends JPanel implements KeyListener{
 
 	private static final long serialVersionUID = 1L;
 
-	private static int speed = 50,whaleSize = 60 ,waveHeight = 50;
+	private static int speed = 50,whaleSize = 200 ,waveHeight = 100;
 	private static int base=400,xStart = 1000;
 	private long point = 0,lastPress=0;
 
-	private Whale whale = new Whale(10,300,50);
+	private Whale whale = new Whale(10,300,100);
 	private Display display;
 	private BufferedImage randomImage;
 
-	private Wave[] waveSet = makeWave(1);
+	private Wave[] waveSet = makeWave(4);
 
 
 	public Game(Display display){
@@ -36,7 +36,6 @@ public class Game extends JPanel implements KeyListener{
 		this.setBounds(0,0,1000,600);
 		this.addKeyListener(this);
 		this.setLayout(null);
-		System.out.println("sdada");
 		this.setFocusable(true);
 		this.setPreferredSize(new Dimension(1000, 600));
 	}
@@ -105,14 +104,6 @@ public class Game extends JPanel implements KeyListener{
 		} catch (IOException e) {
 			e.printStackTrace(); // พิมพ์ข้อยกเว้นในคอนโซล หรือสามารถแสดงข้อความให้ผู้ใช้ทราบ
 		}
-
-//		Wave.RandomImage randomImageObject = wave.getRanImage(); // สร้างออบเจ็กต์ RandomImage
-//		Image waveImage = randomImageObject.getImage(); // ดึง BufferedImage จาก RandomImage
-//		int x = randomImageObject.getX();
-//		int y = randomImageObject.getY();
-//
-//		// วาดภาพ wave ที่ตำแหน่งที่สุ่มได้
-//		g2.drawImage(waveImage, x, (y - waveHeight), 40, waveHeight + 10, null);
 
 		// ตรวจสอบการชน
 		if (event.checkHit(whale, wave, whaleSize, waveHeight)) {

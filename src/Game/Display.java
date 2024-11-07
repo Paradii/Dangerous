@@ -22,8 +22,10 @@ public class Display extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1000,600);
 		this.setLocationRelativeTo(null);
-		Game gamePanel = new Game(this);
-		this.getContentPane().add(gamePanel);
+		StartMenu startMenu = new StartMenu(this);
+		this.getContentPane().add(startMenu);
+//		Game gamePanel = new Game(this);
+//		this.getContentPane().add(gamePanel);
 		this.setVisible(true);
 	}
 	private void removeContent() {
@@ -36,23 +38,27 @@ public class Display extends JFrame implements ActionListener{
 		removeContent();
 		this.getContentPane().add(new Menu(point,this));
 	}
+	public void startGame(long point) {
+		removeContent();
+		Game gamePanel = new Game(this);
+		this.getContentPane().add(gamePanel);
+		gamePanel.requestFocus();
+	}
+
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("restart")) {
+//		if(e.getActionCommand().equals("restart")) {
 			removeContent();
 			Game game = new Game(this);
 			this.getContentPane().add(game);
 			game.requestFocus();
-		}
+//		}
 	}
 
 	public static void main(String[] arg) {
 		Display display = new Display();
 		display.setting();
-//		Game game = new Game(display);
-		display.getContentPane().add(new Game(display));
-//		game.requestFocus();
-
 	}
 }
 

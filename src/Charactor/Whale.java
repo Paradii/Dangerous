@@ -32,11 +32,8 @@ public class Whale {
     }
 
     public void Down(JPanel game) {
-        int panelHeight = game.getHeight();  // ความสูงของหน้าต่างเกม
-        if (y + whaleSize + upHeight <= panelHeight) {  // ตรวจสอบขอบล่าง
+        if (y + whaleSize <= 410) {  // ตรวจสอบขอบล่าง
             this.y += upHeight;
-        } else {
-            this.y = panelHeight - whaleSize;  // ถ้าเกินขอบล่าง ให้ยึดขอบล่าง
         }
     }
 
