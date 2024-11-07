@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.awt.Dimension;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -23,11 +24,11 @@ public class Game extends JPanel implements KeyListener{
 	private static int base=400,xStart = 1000;
 	private long point = 0,lastPress=0;
 
-	private Whale whale = new Whale(100,450,50);
+	private Whale whale = new Whale(10,300,50);
 	private Display display;
 	private BufferedImage randomImage;
 
-	private Wave[] waveSet = makeWave(4);
+	private Wave[] waveSet = makeWave(1);
 
 
 	public Game(Display display){
@@ -35,6 +36,7 @@ public class Game extends JPanel implements KeyListener{
 		this.setBounds(0,0,1000,600);
 		this.addKeyListener(this);
 		this.setLayout(null);
+		System.out.println("sdada");
 		this.setFocusable(true);
 		this.setPreferredSize(new Dimension(1000, 600));
 	}
@@ -52,7 +54,7 @@ public class Game extends JPanel implements KeyListener{
 
 			g2.setColor(Color.RED);
 			drawWhaleHealth(g2);
-			g2.drawImage(whale.getWhaleImage(),whale.x,whale.y,200,200, null);
+			g2.drawImage(whale.getWhaleImage(),whale.x,whale.y,300,300, null);
 
 			for(Wave item : waveSet) {
 				drawWave(item,g2);
@@ -74,7 +76,7 @@ public class Game extends JPanel implements KeyListener{
 			g2.setColor(new Color(241, 98, 69));
 			g2.drawLine(60, 30,60+whale.health,30);
 			g2.setColor(Color.white);
-			g2.setStroke(new BasicStroke(6.0f));
+			g2.setStroke(new BasicStroke(3.0f));
 			g2.drawRect(50,20, 200,20);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -85,20 +87,32 @@ public class Game extends JPanel implements KeyListener{
 		Wave[] waveSet = new Wave[size];
 		int far = 500;
 		for(int i=0;i<size;i++) {
-			waveSet[i] = new Wave(xStart+far,base,speed,this);
+			waveSet[i] = new Wave(xStart+far,base,350,this);
 			far+=500;
 		}
 		return waveSet;
 	}
 
-	private void drawWave(Wave wave, Graphics2D g2) {
-		Wave.RandomImage randomImageObject = wave.getRanImage(); // สร้างออบเจ็กต์ RandomImage
-		Image waveImage = randomImageObject.getImage(); // ดึง BufferedImage จาก RandomImage
-		int x = randomImageObject.getX();
-		int y = randomImageObject.getY();
+	private void drawWave(Wave wave, Graphics2D g2) throws IOException {
+		Random rand = new Random();
+		int x = rand.nextInt(800); // ค่าสุ่ม x ในช่วง 0 ถึง 800
+		int y =  10 + rand.nextInt(550); // ค่าสุ่ม y ในช่วง base+10 ถึง base+210
 
-		// วาดภาพ wave ที่ตำแหน่งที่สุ่มได้
-		g2.drawImage(waveImage, x, (y - waveHeight), 40, waveHeight + 10, null);
+		// วาดภาพที่ตำแหน่งสุ่ม x และ y
+		g2.drawImage(ImageIO.read(new File("img/8.png")), x, y, 60, 60, null);
+		try {
+			g2.drawImage(ImageIO.read(new File("img/8.png")), x, y, 60, 60, null);
+		} catch (IOException e) {
+			e.printStackTrace(); // พิมพ์ข้อยกเว้นในคอนโซล หรือสามารถแสดงข้อความให้ผู้ใช้ทราบ
+		}
+
+//		Wave.RandomImage randomImageObject = wave.getRanImage(); // สร้างออบเจ็กต์ RandomImage
+//		Image waveImage = randomImageObject.getImage(); // ดึง BufferedImage จาก RandomImage
+//		int x = randomImageObject.getX();
+//		int y = randomImageObject.getY();
+//
+//		// วาดภาพ wave ที่ตำแหน่งที่สุ่มได้
+//		g2.drawImage(waveImage, x, (y - waveHeight), 40, waveHeight + 10, null);
 
 		// ตรวจสอบการชน
 		if (event.checkHit(whale, wave, whaleSize, waveHeight)) {

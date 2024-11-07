@@ -11,6 +11,7 @@ public class Whale {
     public int x=100,y=450,whaleSize=400;
     private int upHeight = 20;
     public int health = 180;
+    private long point = 0;
 
     public Whale(int x,int y,int whaleSize) {
         this.x = x;

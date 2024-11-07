@@ -23,7 +23,7 @@ public class Wave {
     }
 
     public void move(JPanel page) {
-        this.timeMove = new Timer(220,new ActionListener() {
+        this.timeMove = new Timer(50,new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(x<=0) {
                     x = (int) (1000+(300+Math.random()*1000));
@@ -85,7 +85,7 @@ public class Wave {
 
         // สุ่มตำแหน่ง x และ y
         int x = 200 + rand.nextInt(1000); // x อยู่ในช่วง 100 ถึง 300
-        int y = 20 + rand.nextInt(500); // แทนค่า 600 ด้วยขอบเขตสูงสุดของ y ที่ต้องการ
+        int y = 50 + rand.nextInt(300); // แทนค่า 600 ด้วยขอบเขตสูงสุดของ y ที่ต้องการ
 
         // คืนค่า RandomImage ที่มีทั้ง BufferedImage และตำแหน่ง x, y
         return new RandomImage(image, x, y);

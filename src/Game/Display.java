@@ -9,10 +9,13 @@ public class Display extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 
-	public Display() {
-		this.setting();
-		this.getContentPane().add(new Game(this));
-	}
+//	public Display() {
+//		removeContent();
+//		this.setting();
+//		Game game = new Game(this);
+//		this.getContentPane().add(game);
+//		game.requestFocus();
+//	}
 
 	private void setting() {
 		this.setTitle("Dangerous!!");
@@ -27,6 +30,7 @@ public class Display extends JFrame implements ActionListener{
 		this.getContentPane().removeAll();
 		this.getContentPane().repaint();
 	}
+
 
 	public void endGame(long point) {
 		removeContent();
@@ -44,7 +48,10 @@ public class Display extends JFrame implements ActionListener{
 
 	public static void main(String[] arg) {
 		Display display = new Display();
-
+		display.setting();
+//		Game game = new Game(display);
+		display.getContentPane().add(new Game(display));
+//		game.requestFocus();
 
 	}
 }
